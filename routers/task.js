@@ -15,7 +15,7 @@ taskRouters.post("/", async (req, res) => {
     newTask = await newTask.save();
     sendResponse(res, 201, false, newTask, "task added");
   } catch (e) {
-    sendResponse(res, 201, true, newTask, "task added" + e);
+    sendResponse(res, 201, true, null, "task added" + e);
   }
 });
 
@@ -25,7 +25,7 @@ taskRouters.get("/", async (req, res) => {
   try {
     sendResponse(res, 200, false, allTasks, "task Found");
   } catch (e) {
-    sendResponse(res, 400, true, allTasks, "task not Found" + e);
+    sendResponse(res, 400, true, null, "task not Found" + e);
   }
 });
 
@@ -36,7 +36,29 @@ taskRouters.get("/:id", async (req, res) => {
   try {
     sendResponse(res, 200, false, allTasks, "task Found");
   } catch (e) {
-    sendResponse(res, 400, true, allTasks, "task not Found" + e);
+    sendResponse(res, 400, true, null, "task not Found" + e);
   }
 });
+
+taskRouters.get("/", async (req, res) => {
+  try {
+    const completedTasks = await Task.find({ completed: true });
+
+    if (completedTasks.length === 0) {
+      return sendResponse(res, 404, true, null, "No completed tasks found");
+    }
+
+    sendResponse(res, 200, false, completedTasks, "Tasks found");
+  } catch (error) {
+    sendResponse(
+      res,
+      500,
+      true,
+      null,
+      "An error occurred while fetching tasks: " + error.message
+    );
+  }
+}); 
+
 export default taskRouters;
+ 
