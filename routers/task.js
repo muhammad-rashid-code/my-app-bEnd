@@ -40,7 +40,7 @@ taskRouters.get("/:id", async (req, res) => {
   }
 });
 
-taskRouters.get("/", async (req, res) => {
+taskRouters.get("/completed", async (req, res) => {
   try {
     const completedTasks = await Task.find({ completed: true });
 
@@ -58,7 +58,6 @@ taskRouters.get("/", async (req, res) => {
       "An error occurred while fetching tasks: " + error.message
     );
   }
-}); 
+});
 
 export default taskRouters;
- 
