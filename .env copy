@@ -1,2 +1,0 @@
-PORT=4000
-MONGO_URI=mongodb+srv://rashid:pwd@cluster0.sno7k.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
